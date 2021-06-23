@@ -8,18 +8,20 @@ This repository includes codes for synthetic trainings of the two robotic tasks 
 1. Swinging up a pendulum with onboard vision
 2. Grasping realistic 2D/3D grasping
 
-Although the codes for all experiments are included here, we only provide instructions for re-producing pendulum experiments here. Re-producing grasping experiments relies on several custom packages (SDF sampling, mesh processing, off-screen rendering) that requires careful installation; we are happy to provide instructions upon further request. We do provide the instructions for running grasping policy training in 2D setting (with PyBullet simulation).
+Although the codes for all experiments are included here, we only provide instructions for re-producing pendulum experiments here. Re-producing grasping experiments relies on several custom packages (SDF sampling, mesh processing, off-screen rendering) that requires careful installation; we are happy to provide instructions upon further request (but would be difficult to keep anonymity). We do provide the instructions for running grasping policy training in 2D setting (with PyBullet simulation).
 
-### Dependencies (`pip install` with python=3.7):
-1. pybullet
-PIL, torch, torchvision, gym, psutil, mnist, h5py, rlpyt (own fork)
-perlin_noise, shapely, trimesh
+### Dependencies:
+`pip install` with python=3.7/3.8: pybullet, Pillow, torch, torchvision, gym, psutil, python-mnist, h5py, pyyaml, perlin_noise (pendulum baseline); shapely, trimesh (grasping) \
+`pip install -e .` to install locally: rlpyt folder included in the supplementary materials, which is a custom fork of [rlpyt](https://github.com/astooke/rlpyt) library for SAC training. Running pendulum experiments requires a GPU.
 
 ### File naming:
+`ae` is for DRAGEN training; `dr` is for baselines (noise, domain randomization, etc).
 
 ### Running pendulum experiments:
-1. Generate
-2. 
+1. (For Digit) install and download MNIST dataset [here](https://pypi.org/project/python-mnist/) and download USPS dataset [here](https://www.kaggle.com/bistaumanga/usps-dataset); (for Urban) download Apollo Synthetic dataset [here](https://apollo.auto/synthtic.html).
+2. Generate Landmark/Digit/Urban images by running ```generate_landmark.py``` and ```process_mnist/usps/apollo.py```.
+3. Specify dataset paths in provided config files.
+4. Run ```python run_pen_ae.py {config filename}```, or ```python run_pen_dr.py {config filename}``` for baselines. 
 <!-- (**Note:** the default number of -->
 
 ### Running grasping policy training in 2D setting:

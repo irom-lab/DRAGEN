@@ -1,0 +1,100 @@
+# Misc
+seed: 67412
+cuda_idx: 0
+num_cpus: 16
+cpu_offset: 0
+batch_size: 8 #!
+num_retrain: 30
+label_normalization: [-900, -300]
+num_frame_stack: 3
+num_eval_per_env: 8
+dim_obs: 32 #!
+dim_img: 48 #!
+dim_latent: 16  #!
+inner_channels: 32
+predictor_breadth: 32
+mlp_factor: 32
+num_layer: 3
+interp_mode: 'blinear'
+use_upsampling: True
+
+# Debug
+num_epoch_per_loss_print: 100
+num_epoch_per_loss_log: 500
+num_epoch_per_save_model: 100
+num_new_img_vis: 10
+
+# Data
+data_parent_dir:   # TODO: debug folder path
+initial_env_dir_list: [""]  # TODO: add data path
+test_env_dir_list: [""]  # TODO: add data path
+num_env_per_initial_dir: 200
+num_env_per_test_dir: 200
+
+# Loss
+reg_loss_ratio: 0.1
+lip_loss_ratio: 1.0
+clamp_lip: 0.04
+norm_loss_ratio: 0.1
+
+# optimizer
+optim_type: AdamW
+encoder_lr: 0.001
+encoder_weight_decay: 0.0
+decoder_lr: 0.001
+decoder_weight_decay: 0.0
+predictor_lr: 0.001
+predictor_weight_decay: 0.0
+decayLR_use: 0
+decayLR_milestones: []
+decayLR_gamma: 0.5
+
+# Generation
+num_env_per_gen: 64
+num_epoch_per_retrain: 200
+num_epoch_before_first_retrain: 2000
+eta: 1.0
+gamma: 1.0
+ga_steps: 10
+target_drop_percentage: 0.20  #!
+target_drop_percentage_rate: 0.95
+
+reuse_replay_buffer: True
+retrain_args:
+  num_itr_initial: 10
+  num_itr_final: 10
+  num_itr: 10
+  num_env_train: 128
+  batch_T: 16
+  batch_size: 256
+  pretrain_std: 0.75
+  min_steps_learn: 5000
+  replay_fix_ratio: 0.1
+  load_model_after_min_steps: True
+  replay_size: 50000
+  replay_ratio: 32
+  clip_grad_norm: 3000
+  learning_rate: 0.001
+  fixed_alpha: True
+  initial_alpha: 0.2
+  load_q_model: True
+  tie_weights: True
+  num_itr_actor_wait: 0
+  min_save_itr_ratio: 0
+  min_save_pi_loss_ratio:
+  min_save_q_loss_ratio:
+  running_std_thres: 500
+  log_tabular_only: True
+  num_itr_per_log: 2
+pi_args:
+  channels: [16, 32]
+  kernel_sizes: [6, 4]
+  strides: [4, 2]
+  paddings: [0, 0]
+  hidden_sizes: [128, 128]
+q_args:
+  channels: [16, 32]
+  kernel_sizes: [6, 4]
+  strides: [4, 2]
+  paddings: [0, 0]
+  hidden_sizes: [256, 256]

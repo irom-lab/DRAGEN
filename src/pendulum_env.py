@@ -197,7 +197,7 @@ class PendulumVisionEnv(gym.Env):
 if __name__ == '__main__':
 
 	# Test single environment in GUI
-	env = PendulumVisionEnv(img_path='/home/allen/data/wasserstein/landmark_v1/0.png', renders=True, discrete_actions=False)
+	env = PendulumVisionEnv(img_path='', renders=True, discrete_actions=False)
 	env.reset()
 
 	for t in range(100):

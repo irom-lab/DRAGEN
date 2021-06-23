@@ -1,0 +1,90 @@
+# Misc
+seed: 64224
+cuda_idx: 0
+batch_size: 4
+num_retrain: 30
+dim_latent: 16  #!
+encoder_breadth: 128
+decoder_breadth: 128
+predictor_breadth: 16
+voxel_resolution: 128
+
+# Friction
+mu: 0.3 # for obj in train, and finger in both train and test 
+sigma: 0.03
+mu_list: [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55] # for obj in eval
+
+# Debug
+num_epoch_per_loss_print: 100
+num_epoch_per_loss_log: 10000
+num_epoch_per_save_model: 100
+num_epoch_per_vis: 10
+
+# Data
+data_parent_dir:   # TODO: debug folder path
+initial_env_dir_list: [""]  # TODO: add data path
+test_env_dir_list: [""]  # TODO: add data path
+num_env_per_initial_dir: 100
+num_env_per_test_dir: 100
+num_eval_per_env: 1 # initial condition is the same for now
+
+# Loss
+reg_loss_ratio: 0.1
+lip_loss_ratio: 1.0
+clamp_lip: 0.04
+norm_loss_ratio: 0.1
+
+# optimizer
+optim_type: AdamW
+encoder_lr: 0.001
+encoder_weight_decay: 0.0
+decoder_lr: 0.001
+decoder_weight_decay: 0.0
+predictor_lr: 0.001
+predictor_weight_decay: 0.0
+decayLR_use: 0
+decayLR_milestones: []
+decayLR_gamma: 0.5
+
+# Generation
+num_env_per_gen: 96  #!
+num_epoch_per_retrain: 500
+num_epoch_before_first_retrain: 2000
+eta: 1.0
+gamma: 1.0
+ga_steps: 10
+target_drop_percentage: 0.10
+target_drop_percentage_rate: 0.97
+keep_concave_part: True
+
+retrain_args:
+  num_cpus: 16
+  cpu_offset: 0
+  num_step_initial: 20
+  num_step: 40
+  num_update_per_step: 3
+  N: 128
+  buffer_size: 1000
+  inner_channels: 24
+  lr: 0.003
+  num_theta: 6
+  eps: 1.0
+  eps_min: 0.2
+  eps_decay: 0.97
+  img_size: 96 #!
+  max_obj_height: 0.05 #!
+  delta_z: 0.02 #!
+eval_args:
+  num_cpus: 16
+  cpu_offset: 0
+  inner_channels: 24
+  num_theta: 6
+  img_size: 96  #!
+  max_obj_height: 0.05 #!
+  delta_z: 0.02 #!
+sdf_args:
+  num_cpus: 16
+  cpu_offset: 0
+  num_sdf_available_per_obj: 20000
+  num_surface_per_obj: 2048
+  num_sdf_per_obj: 1000

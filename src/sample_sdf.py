@@ -1,29 +1,3 @@
-"""
-MIT License
-
-Copyright (c) 2020 Marian Kleineberg
-Copyright (c) 2021 Intelligent Robot Motion Lab
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-
 import os
 # If server, need to use osmesa for pyopengl/pyrender
 if os.cpu_count() > 20:
@@ -146,5 +120,5 @@ if __name__ == '__main__':
 							cpu_offset=0,
 							num_sdf_available_per_obj=20000,
 							num_surface_per_obj=2048)
-	sampler.reset_dir(directory='/home/allen/data/wasserstein/grasp/3dnet_train/')
+	sampler.reset_dir(directory='')
 	sampler.sample_new_surface_point_sdf(obj_id_list=np.arange(255))

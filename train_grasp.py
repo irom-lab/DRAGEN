@@ -9,45 +9,10 @@ import concurrent.futures
 import psutil
 
 from src.fcn import FCN
-from panda.panda_env import PandaEnv	#!
+from panda.panda_env import PandaEnv
 from util.depth import getParameters
+from util.grasp import rotate_tensor, euler2quat, quatMult
 from util.misc import *
-
-
-def rotate_tensor(orig_tensor, theta):
-	"""
-	Rotate images clockwise
-	"""
-	affine_mat = np.array([[np.cos(theta), np.sin(theta), 0],
-							[-np.sin(theta), np.cos(theta), 0]])
-	affine_mat.shape = (2,3,1)
-	affine_mat = torch.from_numpy(affine_mat).permute(2,0,1).float()
-	flow_grid = torch.nn.functional.affine_grid(affine_mat, orig_tensor.size(), align_corners=False)
-	return torch.nn.functional.grid_sample(orig_tensor, flow_grid, mode='nearest', align_corners=False)
-
-def euler2quat(a):
-	yaw = a[1]
-	pitch = a[0]  # flipped
-	roll = a[2]
-	c1 = np.cos(yaw/2)
-	s1 = np.sin(yaw/2)
-	c2 = np.cos(pitch/2)
-	s2 = np.sin(pitch/2)
-	c3 = np.cos(roll/2)
-	s3 = np.sin(roll/2)
-	c1c2 = c1*c2;
-	s1s2 = s1*s2;
-	w = c1c2*c3 - s1s2*s3;
-	x = c1c2*s3 + s1s2*c3;
-	y =s1*c2*c3 + c1*s2*s3;
-	z =c1*s2*c3 - s1*c2*s3;
-	return np.array([x,y,z,w])
-
-def quatMult(p, q):
-	w = p[3]*q[3] - np.dot(p[:3], q[:3])
-	abc = p[3]*q[:3] + q[3]*p[:3] + np.cross(p[:3], q[:3])
-	return np.hstack((abc, w))
-
 
 class GraspSim:
 
@@ -569,7 +534,7 @@ if __name__ == '__main__':
 	ensure_directory(result_dir)
 
 	# Configure objects
-	obj_dir_list = ['/home/allen/data/wasserstein/random_polygon_v1/']
+	obj_dir_list = ['']
 
 	# Initialize trianing env
 	trainer = TrainGrasp(result_dir=result_dir,
